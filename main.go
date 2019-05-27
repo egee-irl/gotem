@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"os/signal"
@@ -10,15 +9,21 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var Token string
+//func start() discordgo.Session{
+//	bot, err := discordgo.New(os.Getenv("TOKEN"))
+//	if err != nil {
+//		fmt.Println("Bot login errored out: ", err)
+//		return
+//	}
+//	return bot
+//}
 
-func init() {
-	flag.StringVar(&Token, "t", os.Getenv("TOKEN"), "Bpt Token")
-	flag.Parse()
+func test() {
+	fmt.Println("Bot is now running!")
 }
 
 func main() {
-	bot, err := discordgo.New("my_token")
+	bot, err := discordgo.New(os.Getenv("TOKEN"))
 	if err != nil {
 		fmt.Println("Bot login errored out: ", err)
 		return
@@ -30,11 +35,13 @@ func main() {
 		return
 	}
 
-	fmt.Println("Bot is now running!")
-	sc := make(chan os.Signal, 1)
+	test()
+
+	var sc = make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
-	err = bot.Close()
+
+	bot.Close()
 	if err != nil {
 		fmt.Println("Something failed when closing the bot: ", err)
 	}
