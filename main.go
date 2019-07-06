@@ -9,19 +9,6 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-//func start() discordgo.Session{
-//	bot, err := discordgo.New(os.Getenv("TOKEN"))
-//	if err != nil {
-//		fmt.Println("Bot login errored out: ", err)
-//		return
-//	}
-//	return bot
-//}
-
-func test() {
-	fmt.Println("Bot is now running!")
-}
-
 func main() {
 	bot, err := discordgo.New(os.Getenv("TOKEN"))
 	if err != nil {
@@ -29,15 +16,11 @@ func main() {
 		return
 	}
 
-	err = bot.Open()
-	if err != nil {
-		fmt.Println("It errored out again: ", err)
-		return
-	}
+	bot.Open()
 
-	test()
+	fmt.Println("Bot is now running!")
 
-	var sc = make(chan os.Signal, 1)
+	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
 

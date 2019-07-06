@@ -1,3 +1,3 @@
 # gotem
 
-Just a super simple Discord bot written with Golang.
+Just a super simple Discord bot written with Go.
